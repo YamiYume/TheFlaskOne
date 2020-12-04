@@ -4,9 +4,11 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-cred = credentials.Certificate("./ignore/theflaskone-firebase-adminsdk-ohkvk-0eb1aa23cc.json")
+cred=credentials.Certificate("./ignore/theflaskone-firebase-adminsdk-ohkvk-0eb1aa23cc.json")
 firebase_admin.initialize_app(cred)
 db=firestore.client()
+
+from flaskr.firestorethings import WriterFirestore
 
 def create_app(test_config=None):
     # create and configure the app
@@ -23,14 +25,15 @@ def create_app(test_config=None):
     # a simple page that says hello
     @app.route('/hello')
     def hello():
-        collection=db.collection("products")
-        data = {
-            u'name': u'Los Angeles',
-            u'state': u'CA',
-            u'country': u'USA',
-            u'poblation': 234
+        A=WriterFirestore()
+        fun={
+            'ide':1,
+            'count':10,
+            'state':True,
         }
-        collection.add(data)
-        return 'Hello, World!'
-        
+        try:
+            B=A.register('export',fun)
+        except ValueError:
+            return 'alredy created'
+        return 'Hello, World!'+str(B)     
     return app
