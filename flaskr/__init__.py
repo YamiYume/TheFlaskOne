@@ -3,6 +3,7 @@ from flask import Flask
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+from flaskr.exceptions import *
 
 cred=credentials.Certificate("./ignore/theflaskone-firebase-adminsdk-ohkvk-0eb1aa23cc.json")
 firebase_admin.initialize_app(cred)
@@ -27,13 +28,17 @@ def create_app(test_config=None):
     def hello():
         A=WriterFirestore()
         fun={
-            'ide':1,
+            'ide':2,
             'count':10,
             'state':True,
         }
         try:
-            B=A.register('export',fun)
-        except ValueError:
-            return 'alredy created'
-        return 'Hello, World!'+str(B)     
+            B=A.register('products',fun)
+        except RedundancyException:
+            return 'Alredy Created'
+        except ExistenceException:
+            return 'The Product Not Exist'
+        except ProcrastinatingException:
+            return 'The Function Not Works'
+        return 'Hello, World!'
     return app
