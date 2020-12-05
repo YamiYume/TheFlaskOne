@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Add Product{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="ide">IDE</label>
+    <input type="text" input name="ide" id="ide" required>
+    <label for="productName">Product name</label>
+    <input type="text" name="productName" id="productName" required>
+    <input type="submit" value="Add">
+  </form>
+{% endblock %}

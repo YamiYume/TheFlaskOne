@@ -32,5 +32,3 @@ class SearcherFirestoredev:
             self.counter=self.counter+1
         if self.counter==0:
             raise ExistenceException
-    def get(self):
-        return self.query

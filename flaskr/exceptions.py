@@ -4,3 +4,5 @@ class RedundancyException(Exception):
     """Actually Two Are A Crowd"""
 class ProcrastinatingException(Exception):
     """A Procrastinating Function"""
+class WrongDataException(Exception):
+    """Bad Ending"""
