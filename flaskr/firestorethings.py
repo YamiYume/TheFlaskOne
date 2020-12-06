@@ -44,6 +44,11 @@ class historyFirestore:
         for doc in self.query:
             self.doc=doc.to_dict()
             if self.doc and self.doc['state']:
+                if not kind=='products':
+                    self.squery=db.collection('products').where('ide','==',self.doc['ide']).get()
+                    for sdoc in self.squery:
+                        self.sdoc=sdoc.to_dict()
+                        self.doc['productName']=self.sdoc['productName']
                 self.results.append(self.doc)
     def data(self):
         return self.results

@@ -7,8 +7,10 @@
     <article class="export">
         <header>
             <div>
-              <h1>{{ export['ide'] }}</h1>
-              <div class="ide">date: {{export['date']}}</div>
+              <h1>{{ export['productName'] }}</h1>
+              <div class="ide">ide: {{export['ide']}}</div>
+              <div class="date">date: {{export['date']}}</div>
+              <div class="count">count: {{export['count']}}</div>
               <form action="{{ url_for('exportspages.delt', ide=export['date']) }}" method="post">
                 <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
               </form>
