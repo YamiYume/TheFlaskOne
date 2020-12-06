@@ -1,5 +1,8 @@
 from flaskr import db
 from flaskr.exceptions import *
+from flaskr.datamodels import *
+import datetime
+
 
 class WriterFirestore():
     def __init__(self):
@@ -32,3 +35,36 @@ class SearcherFirestoredev:
             self.counter=self.counter+1
         if self.counter==0:
             raise ExistenceException
+
+class historyFirestore:
+    def __init__(self,kind):
+        self.query=db.collection(kind).get()
+        self.results=[]
+        self.kind=kind
+        for doc in self.query:
+            self.doc=doc.to_dict()
+            if self.doc and self.doc['state']:
+                self.results.append(self.doc)
+    def data(self):
+        return self.results
+
+class deleter:
+    def __init__(self,ide,kind):
+        self.ide=ide
+        self.kind=kind
+    def trsh(self):
+        if self.kind=='products':
+            self.docs=db.collection(self.kind).where('ide','==',self.ide).get()
+            for doc in self.docs:
+                self.doc=doc.id
+                self.data=doc.to_dict()
+                self.data['state']=False
+                db.collection(self.kind).document(self.doc).set(self.data)
+        else:
+            self.docs=db.collection(self.kind).where('date','==',self.ide).get()
+            for doc in self.docs:
+                self.doc=doc.id
+                self.data=doc.to_dict()
+                self.data['state']=False
+                db.collection(self.kind).document(self.doc).set(self.data)
+                

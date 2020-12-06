@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block header %}
+  <h1>{% block title %}Exports history{% endblock %}</h1>
+{% endblock %}
+{% block content %}
+  {% for export in datahistory %}
+    <article class="export">
+        <header>
+            <div>
+              <h1>{{ export['ide'] }}</h1>
+              <div class="ide">date: {{export['date']}}</div>
+              <form action="{{ url_for('exportspages.delt', ide=export['date']) }}" method="post">
+                <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+              </form>
+            </div>
+        </header>
+    </article>
+    {% if not loop.last %}
+    <hr>
+  {% endif %}
+{% endfor %}
+{% endblock %}
+

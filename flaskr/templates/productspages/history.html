@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block header %}
+  <h1>{% block title %}Products{% endblock %}</h1>
+{% endblock %}
+{% block content %}
+  {% for product in datahistory %}
+    <article class="product">
+        <header>
+            <div>
+              <h1>{{ product['productName'] }}</h1>
+              <div class="ide">ide: {{product['ide']}}</div>
+              <form action="{{ url_for('productspages.delt', ide=product['ide']) }}" method="post">
+                <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+              </form>
+            </div>
+        </header>
+    </article>
+    {% if not loop.last %}
+    <hr>
+  {% endif %}
+{% endfor %}
+{% endblock %}
+

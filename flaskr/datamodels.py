@@ -1,5 +1,8 @@
 from datetime import date
 from flaskr.exceptions import *
+import firebase_admin
+from firebase_admin import firestore
+from datetime import datetime
 
 class product():
     def __init__(self,ide="",productName=""):
@@ -9,15 +12,9 @@ class product():
             raise WrongDataException
         self.productName=str(productName)
     def data(self):
-        return {'ide':self.ide,'productName':self.productName}
+        return {'ide':self.ide,'productName':self.productName,'state':True}
     def kind(self):
         return 'products'
-    def retake(self,datadict):
-        self.ide=datadict['ide']
-        try:
-            self.productName=datadict['productName']
-        except KeyError:
-            raise WrongDataException
 
 class importation():
     def __init__(self,ide="",count=""):
@@ -30,25 +27,12 @@ class importation():
         except ValueError:
             raise WrongDataException
         self.state=True
-        self.date=date.today()
+        self.date=datetime.now()
+        self.date=self.date.strftime("%m_%d_%Y_%H_%M_%S")
     def data(self):
         return {'ide':self.ide,'count':self.count,'state':self.state,'date':self.date}
     def kind(self):
         return 'imports'
-    def retake(self,datadict):
-        self.ide=datadict['ide']
-        try:
-            self.count=datadict['count']
-        except KeyError:
-            raise WrongDataException
-        try:
-            self.state=datadict['state']
-        except KeyError:
-            raise WrongDataException
-        try:
-            self.date=datadict['date']
-        except KeyError:
-            raise WrongDataException
         
 class exportation():
     def __init__(self,ide="",count=""):
@@ -61,22 +45,9 @@ class exportation():
         except ValueError:
             raise WrongDataException
         self.state=True
-        self.date=date.today()
+        self.date=datetime.now()
+        self.date=self.date.strftime("%m_%d_%Y_%H_%M_%S")
     def data(self):
         return {'ide':self.ide,'count':self.count,'state':self.state,'date':self.date}
     def kind(self):
         return 'exports'
-    def retake(self,datadict):
-        self.ide=datadict['ide']
-        try:
-            self.count=datadict['count']
-        except KeyError:
-            raise WrongDataException
-        try:
-            self.state=datadict['state']
-        except KeyError:
-            raise WrongDataException
-        try:
-            self.date=datadict['date']
-        except KeyError:
-            raise WrongDataException
