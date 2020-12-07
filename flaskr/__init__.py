@@ -5,6 +5,16 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from flaskr.exceptions import *
 
+# to run the app:
+# Download
+# open the cd
+# execute $venv\Scripts\activate
+# execute $set FLASK_APP=flaskr
+# execute $set FLASK_ENV=development
+# execute $flask run
+#copy url
+#add /productspages/add
+
 cred=credentials.Certificate("./ignore/theflaskone-firebase-adminsdk-ohkvk-0eb1aa23cc.json")
 firebase_admin.initialize_app(cred)
 db=firestore.client()
@@ -28,7 +38,7 @@ def create_app(test_config=None):
     from . import importspages
     app.register_blueprint(importspages.bp)
     
-    @app.route('/hello')
+    @app.route('/index')
     def hello():
         return 'Hello, World!'
     return app

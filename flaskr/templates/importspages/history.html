@@ -15,9 +15,9 @@
         <header>
             <div>
               <h1>{{ import['productName'] }}</h1>
-              <div class="ide">ide: {{import['ide']}}</div>
-              <div class="date">date: {{import['date']}}</div>
-              <div class="count">count: {{import['count']}}</div>
+              <div class="ide">IDE: {{import['ide']}}</div>
+              <div class="date">Creation Date: {{import['date']}}</div>
+              <div class="count">Imported Quantity: {{import['count']}}</div>
               <form action="{{ url_for('importspages.delt', ide=import['date']) }}" method="post">
                 <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
               </form>

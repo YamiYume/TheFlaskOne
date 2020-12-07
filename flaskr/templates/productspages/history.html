@@ -8,8 +8,8 @@
         <header>
             <div>
               <h1>{{ product['productName'] }}</h1>
-              <div class="ide">ide: {{product['ide']}}</div>
-              <div class="total">total: {{product['total']}}</div>
+              <div class="ide">IDE: {{product['ide']}}</div>
+              <div class="total">Total Quantity: {{product['total']}}</div>
               {% if product['total']<0 %}
               <p>a totals error has appeared please check it manually</p>
               {% endif %}
