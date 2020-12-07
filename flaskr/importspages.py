@@ -31,8 +31,17 @@ def add():
     return render_template('importspages/add.html')
 @bp.route('/history',methods=('GET', 'POST'))
 def history():
-    datahistory=historyFirestore('imports')
-    datahistory=datahistory.data()  
+    if request.method=='POST':
+        ide=request.form['ide']
+        if not ide:
+            error='ide required'
+        else:
+            datahistory=historyFirestore('imports',ide)
+            datahistory=datahistory.data()
+            return render_template('importspages/history.html',datahistory=datahistory)
+    else:
+        datahistory=historyFirestore('imports')
+        datahistory=datahistory.data()  
     return render_template('importspages/history.html',datahistory=datahistory)
 @bp.route('/delt/<string:ide>',methods=('POST',))
 def delt(ide):

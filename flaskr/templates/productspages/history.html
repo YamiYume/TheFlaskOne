@@ -9,6 +9,10 @@
             <div>
               <h1>{{ product['productName'] }}</h1>
               <div class="ide">ide: {{product['ide']}}</div>
+              <div class="total">total: {{product['total']}}</div>
+              {% if product['total']<0 %}
+              <p>a totals error has appeared please check it manually</p>
+              {% endif %}
               <form action="{{ url_for('productspages.delt', ide=product['ide']) }}" method="post">
                 <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
               </form>
